@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "crested-aquifer-426012-c6",
+  "private_key_id": "497ef84a6d0c26bf9dbdf93a0c85d8cdcad9cffd",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCUB4c++2xk1HLg\nVjdd1fiI2/PJp5b7UzdIwI16IguPPu8r6g6komMqZDO0QXO4FvPiItIIMFktu4wS\nBipKaqHkM4sEbMC63rY2ywBdwfC0DF+xpGjyuaK/RYtdVq7l18Wdir6y+HXErnRa\nT1ek99AWu5+PtgEYyYXIXocvYOJJo5u2L2ZKu5yYB67pKFMwln4fVBK5PWO7RGYN\nFouGJxJsDFs/b04h4pFqAFI3gTtoPw1BqrFrWgvkTNh22VDMufMHwtZFxFAYUUHe\nHj2x4EaaQknxel8ExPg2A2wjyUZdZ582gcOr+CR7W8D/2QE8kANI1ZKopGpVcub0\nsl5IXNMPAgMBAAECggEADj6dNqPWHevNtCXHxSladb0IvB566mtrFf6lfpu5Fgs9\n07F9wDz6IvGqgg2MV6opxNiJ8ozIgByckX1zY17Yfk+xcHcQosrcqPAm9F69zW2l\nZcBG8xiG/zXvf8dgJDD7zLm1uR4sowUQoEIjUnYgWZerdpZSi7KUw5/JDXeavvAw\ng01cuLtnWgP+wtU+Uo4gIC7vAtkdOsiTH0U1Ew60wA+cQivzhyZa2WPNIda71b+J\nQgpAGJ1nXJRSY6rMFLyygKoe4PPBzmsW+4K8QnDUJUSXMugwMfoJ5P1y61u6u9p4\nwKyE8uGgl0Ce0iFhFrVnRaS52idHSfzBXdxwKhpfvQKBgQDLKGCvYGqOW9bF7kcE\nr9JlRfPHpCwwbqtL/lyfH9wOV6DoVx+2ydRRFdgFmUKVVmIu4ld6u+IWQYVE+M8l\n/3RqLtXQluQq8iQUT+57ebrxSP25lOnP2Dsq+pizuWjMmhkNpZeIWl2L5+Iw5KAR\nstxBE7pLqiUKNqsQMIbyZggoewKBgQC6iFUd+inCFfqbDGAiH2fcwka7aX7hLwN/\n/jEHm0FsadAWGa8O01I5cDN7VcVzfdhxmagrWFseflHRJ1NOR107LZ5FG1Wr+McC\nYXG2HY3GkW+S1n2OvbW1UlaHbXS1IHrZ8ANvXPJRlW9e/7ZmXtYUsMsqyW/pb4nm\nXp0fGcd9fQKBgAuy8Y5n4Pr9suqHBDPy5AzM8HLos1q+pMKljTPko8l3pl561eqy\nyLU6qsv3vWvYI6NLiXoZ47UgZMpKAbPQeCW9OLbgWZdXhlhdGgCmS+ulJmdPef9s\nFkwtTinbXXuazCKLDKTff0+VNONX5xfd0u00c5/z1lo2N7eg88R1t7aNAoGBAIIC\nb8D7EYvTId5bW82ssglt5zrMpsBwsjHNi4LPtWPIxF4C/L6Kj261Q0ydVYfPmMJk\n5I+Bf9DbHk9251tR5itO+lcUXDwGoz6HiGf0ZVKXH3rqwIxysWl1wBWYNpXf04B/\nBwXhdItkakF+XTUwuGmnZ5Ok3rmHIkhMfZqlryNJAoGAMMox2ou+AqmVzwDAY+Lr\nlaoA6SWHJtkz5XBqniLDkwIPFm7tWIC4L042K7OF3iuA6DFIQ6lXjwU0WkfWNt5Y\n5YEoUcuePAbBbVzwyfrb5nS/uhTPR4R8nVDrr2zwDMpKngmr0JK57VBBNcirjKgF\nSWzUq8SUfLn29cQ42HH4l1k=\n-----END PRIVATE KEY-----\n",
+  "client_email": "google-sheet-api@crested-aquifer-426012-c6.iam.gserviceaccount.com",
+  "client_id": "108805839384488911702",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/google-sheet-api%40crested-aquifer-426012-c6.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
