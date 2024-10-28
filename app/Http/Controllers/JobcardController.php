@@ -19,6 +19,68 @@ class JobcardController extends Controller
         $this->middleware('auth');
     }
 
+    public function newjob()
+    {     
+        return view('newjob');
+    }
+    public function jobsave(Request $request)
+    {
+        try {           
+            
+            $jobcard_no = $request->jobcard_no;
+            $request->validate([
+                'jobcard_no' => 'required',
+                'upload' => 'required|file|mimes:jpg,jpeg,pdf'
+            ]);
+            
+            if ($request->hasFile('upload')) {                
+                $extension = $request->file('upload')->getClientOriginalExtension();
+                $fileName = 'original.' . $extension; // Standardize saved file name
+            
+                // Move the uploaded file
+                $request->file('upload')->move(public_path('store/' . $jobcard_no . '/'), $fileName);
+            
+                // Save data to the database
+                $userdata = new Differenceshading;
+                $userdata->jobcard_no = $request->jobcard_no;
+                $userdata->dept = $request->dept;
+                $userdata->uploaded_by = Auth::user()->id . '-' . Auth::user()->name;
+                $userdata->original_image = $fileName;
+                $data = $userdata->save();
+            
+               // Execute Python script if file is a PDF
+                if ($extension == 'pdf') {
+                    
+                    $scriptPath = 'C:\\laragon\\www\\diffshade\\public\\extact.py';
+                    $jobcard_no = escapeshellarg($request->jobcard_no);
+                    $command = shell_exec('python ' . escapeshellarg($scriptPath) . ' ' . $jobcard_no);
+                    Log::info("Python script output: " . $command);                    
+                }
+               
+            }           
+
+            if ($data  > 0) {
+                Session::flash('success', 'Added successfully');
+                return redirect('joblist');
+            } else {
+                Session::flash('warning', 'Something went wrong');
+                return redirect('joblist');
+            }
+
+        } catch (ValidationException $e) {
+            return redirect()->back()->withErrors($e->validator)->withInput();
+        } catch (QueryException $e) {
+            Log::error('QueryException: ' . $e->getMessage(), [
+                'sql' => $e->getSql(),
+                'bindings' => $e->getBindings(),
+                'code' => $e->getCode(),
+            ]);
+            Session::flash('reservematter-error', 'Internal Server Error. Please try again later.');
+        } catch (\Exception $e) {
+            Log::error('Exception: ' . $e->getMessage());
+            Session::flash('reservematter-error', 'An unexpected error occurred. Please try again later.');
+        }
+    }
 
     public function jobdetail_remove($id)
     {
@@ -59,7 +121,6 @@ class JobcardController extends Controller
             return redirect()->back();
         }
     }
-
 
     public function joblist_remove($id)
     {
@@ -104,56 +165,7 @@ class JobcardController extends Controller
         $data_arrays =  Differenceshading::orderby('id', 'desc')->get();
         return view('joblist', ['data_arrays' => $data_arrays]);
     }
-
-    public function jobsave(Request $request)
-    {
-        try {
-            $filename = null;
-            $path = $request->jobcard_no;
-            // Validate the uploaded file
-            $request->validate([
-                'upload' => 'required|file|mimes:jpg,jpeg,png'
-            ]);
-
-
-            // Update the record
-            if ($request->hasFile('upload')) {
-                $originName = $request->file('upload')->getClientOriginalName();
-                $fileName = pathinfo($originName, PATHINFO_FILENAME);
-                $extension = $request->file('upload')->getClientOriginalExtension();
-                $fileName = 'original' . '.' . $extension;
-                $request->file('upload')->move(public_path('store/' . $path . '/'), $fileName);
-
-                $userdata = new Differenceshading;
-                $userdata->jobcard_no = $request->jobcard_no;
-                $userdata->dept = $request->dept;
-                $userdata->uploaded_by = Auth::user()->id . '-' . Auth::user()->name;
-                $userdata->original_image = $fileName;
-                $data =  $userdata->save();
-            }
-
-            if ($data  > 0) {
-                Session::flash('reservematter-success', 'Added successfully');
-                return redirect('joblist');
-            } else {
-                Session::flash('reservematter-warning', 'Something went wrong');
-                return redirect('joblist');
-            }
-        } catch (ValidationException $e) {
-            return redirect()->back()->withErrors($e->validator)->withInput();
-        } catch (QueryException $e) {
-            Log::error('QueryException: ' . $e->getMessage(), [
-                'sql' => $e->getSql(),
-                'bindings' => $e->getBindings(),
-                'code' => $e->getCode(),
-            ]);
-            Session::flash('reservematter-error', 'Internal Server Error. Please try again later.');
-        } catch (\Exception $e) {
-            Log::error('Exception: ' . $e->getMessage());
-            Session::flash('reservematter-error', 'An unexpected error occurred. Please try again later.');
-        }
-    }
-
+    
     public function object_detailsave(Request $request)
     {
         try {
@@ -279,7 +291,7 @@ class JobcardController extends Controller
     public function jobdetail_live(Request $request)
     {
         try {
-
+            //HAO00198      
             // Prepare command to execute Python script
             $jobcard_no = escapeshellarg($request->jobcard_no);
             $original_image =  escapeshellarg($request->original_image);

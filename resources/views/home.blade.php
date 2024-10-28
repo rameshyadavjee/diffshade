@@ -7,17 +7,14 @@
             <div class="card">
                 <div class="card-header">{{ __('Dashboard') }}</div>
 
-                <div class="card-body text-center">  
+                <div class="card-body">  
                     @if (session('status'))
                     <div class="alert alert-success" role="alert">
                         {{ session('status') }}
                     </div>
                     @endif
 
-                    <h3><a href="{{route('joblist')}}" class="btn btn-outline-secondary">Job Listing</a> | 
-                    <a href="{{route('joblist')}}" class="btn btn-outline-secondary">Add New Job</a></h3>
-
-                </div>
+                    <h3><a href="{{route('joblist')}}" class="btn btn-outline-secondary">Job Listing</a></div>
             </div>
         </div>
     </div>

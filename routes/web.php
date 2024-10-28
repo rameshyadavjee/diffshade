@@ -10,9 +10,7 @@ use Illuminate\Support\Facades\Auth;
 Route::get('/', function () { return view('welcome');}); 
 Auth::routes();
 Route::get('/home', [HomeController::class, 'index'])->name('home');
-Route::get('/performance', [GoogleSheetController::class, 'index'])->name('performance');
-Route::post('/update', [GoogleSheetController::class, 'update'])->name('update');
-
+Route::get('/addnewjob', [JobcardController::class, 'newjob'])->name('newjob');
 Route::get('/joblist', [JobcardController::class, 'joblist'])->name('joblist');
 Route::get('/job-detail/{id}', [JobcardController::class, 'jobdetail'])->name('jobdetail');
 Route::get('/jobdetail_remove/{id}', [JobcardController::class, 'jobdetail_remove'])->name('jobdetail_remove');

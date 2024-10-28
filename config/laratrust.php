@@ -324,7 +324,7 @@ return [
         | These middleware will get added onto each Laratrust panel route.
         |
         */
-        'middleware' => ['web'],
+        'middleware' => ['web','auth'],
 
         /*
         |--------------------------------------------------------------------------
@@ -334,7 +334,7 @@ return [
         | Enable/Disable the permissions assignment to the users.
         |
         */
-        'assign_permissions_to_user' => true,
+        'assign_permissions_to_user' => false,
 
         /*
         |--------------------------------------------------------------------------
@@ -344,7 +344,7 @@ return [
         | Enable/Disable the possibility to create permissions from the panel.
         |
         */
-        'create_permissions' => true,
+        'create_permissions' => false,
 
         /*
         |--------------------------------------------------------------------------
@@ -357,13 +357,13 @@ return [
         */
         'roles_restrictions' => [
             // The user won't be able to remove roles already assigned to users.
-            'not_removable' => [],
+            'not_removable' => ['superadministrator','administrator'],
 
             // The user won't be able to edit the role and the permissions assigned.
-            'not_editable' => [],
+            'not_editable' => ['superadministrator','administrator','user'],
 
             // The user won't be able to delete the role.
-            'not_deletable' => [],
+            'not_deletable' => ['superadministrator','administrator','user'],
         ],
     ],
 ];

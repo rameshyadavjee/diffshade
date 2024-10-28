@@ -10,9 +10,9 @@ from skimage.metrics import structural_similarity as compare_ssim
 import sys
 import os
  
-#rtsp_link = "rtsp://888888:@103.1.101.205:566/cam/realmonitor?channel=6&subtype=0"
+rtsp_link = "rtsp://888888:@103.1.101.205:566/cam/realmonitor?channel=6&subtype=0"
 #rtsp_link = "rtsp://admin:123456@192.168.15.105:8080/h264_aac.sdp"
-rtsp_link = "http://admin:123456@192.168.137.76:8080/video"
+#rtsp_link = "http://admin:123456@192.168.137.76:8080/video"
 timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
 storepath = "C:\\laragon\\www\\diffshade\\public\\store"
 # MySQL connection details

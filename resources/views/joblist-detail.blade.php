@@ -1,9 +1,10 @@
 @extends('layouts.app')
 @push('styles')
-
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-
+    <style>
+        #camera { width: 100%; max-width: 480px; }
+        button { margin-top: 10px; }
+    </style>
 @endpush
 @section('content')
 <div class="container-fluid">
@@ -23,7 +24,7 @@
                             <div>
                                 @if(isset($original_data[0]->original_image))
                                 <a href="{{ asset('store/' . $original_data[0]->jobcard_no . '/' . $original_data[0]->original_image) }}" target="_blank">
-                                    <img class="img-thumbnail" src="{{ asset('store/' . $original_data[0]->jobcard_no . '/' . $original_data[0]->original_image) }}">
+                                    <img class="img-thumbnail" src="{{ asset('store/' . $original_data[0]->jobcard_no . '/' . 'original.jpg') }}">
                                 </a>
                                 @else
                                 <p>No image available</p>
@@ -31,7 +32,7 @@
                             </div>
 
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <!-- Display validation errors -->
                             @if($errors->any())
                             <div class="alert alert-danger">
@@ -60,21 +61,57 @@
                                 <button type="submit" class="btn btn-md btn-warning mt-2" class="form-control">Save</button>
                             </form>
                         </div>
-                        <div class="col-md-4 ">
-                            <div class="text-center form-control text-black" style="height: 130px;">
-                            <form action="{{route('jobdetail_live')}}" method="POST" enctype="multipart/form-data" >
-                                @csrf
-                                <input type="hidden" id="jobcard_no" name="jobcard_no" value="{{$original_data[0]->jobcard_no}}">
-                                <input type="hidden" id="original_image" name="original_image" value="{{$original_data[0]->original_image}}">
-                                <button type="submit" class="btn btn-lg btn-danger text-center mt-4 ">Live Feed <i class="fa fa-camera" style="font-size:48px;"></i> </button> 
-                            </form>
-                            </div>
+                        <div class="col-md-6">                            
+                            <!-- Video Element for Camera Preview -->
+                            <video id="camera" autoplay ></video>                                                                
+                            <canvas id="preview" style="display: none;"></canvas>
+                            <!-- Single Button to Capture and Save Image -->
+                            <button id="save" class="btn btn-primary">Capture and Save Image</button>
+                            <script>
+                                const video = document.getElementById('camera');
+                                const canvas = document.getElementById('preview');
+                                const saveButton = document.getElementById('save');
+                                const context = canvas.getContext('2d');
+
+                                // Access the device camera and stream to video element
+                                navigator.mediaDevices.getUserMedia({ video: true })
+                                    .then(stream => {
+                                        video.srcObject = stream;
+                                    })
+                                    .catch(error => {
+                                        console.error("Error accessing camera:", error);
+                                    });
+
+                                // Capture and save image when save button is clicked
+                                saveButton.addEventListener('click', () => {
+                                    // Set canvas dimensions same as video dimensions
+                                    canvas.width = video.videoWidth;
+                                    canvas.height = video.videoHeight;
+
+                                    // Draw video frame to canvas
+                                    context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+                                    // Convert canvas content to a data URL (base64 encoded image)
+                                    const dataURL = canvas.toDataURL('image/jpeg');
+
+                                    // Generate a file name with the current date and time
+                                    const now = new Date();
+                                    const dateTime = now.toISOString().replace(/[-:.]/g, "").slice(0, 15); // Format as YYYYMMDDTHHMMSS
+                                    const fileName = `{{$original_data[0]->jobcard_no}}_${dateTime}.jpg`; 
+
+                                    // Create an anchor element and trigger a download
+                                    const link = document.createElement('a');
+                                    link.href = dataURL;
+                                    link.download = fileName;  // File name for the download
+                                    link.click();
+                                });
+                            </script>                              
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="card-body">
+            <div class="card-body mt-2">
                 <div class="table-responsive">
                     <table class="table" style="font-size:10px !important;">
                         <thead>
@@ -112,7 +149,4 @@
         </div>
     </div>
 </div>
-@push('scripts')
-
-@endpush
 @endsection
